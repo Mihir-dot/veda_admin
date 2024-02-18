@@ -1,1 +1,1 @@
-# veda_admin
+# sstechkit_front

@@ -1,4 +1,4 @@
-const API_AUTH_URL = import.meta.env.VITE_REACT_APP_AUTH_SERVICE;
+const API_URL = import.meta.env.VITE_REACT_APP_AUTH_SERVICE;
 const API_ROLE_URL = import.meta.env.VITE_REACT_APP_ROLL_SERVICE;
 const API_PERMISSION_URL = import.meta.env.VITE_REACT_APP_PERMISSION_SERVICE;
 const API_COMPANY_URL = import.meta.env.VITE_REACT_APP_COMPANY_SERVICE;
@@ -9,13 +9,13 @@ const API_LOGS_URL = import.meta.env.VITE_REACT_APP_LOGS_SERVICE;
 
 export const API_PATH = {
   //Authentication
-  SIGN_IN: `${API_AUTH_URL}/login`,
-  SIGN_OUT: `${API_AUTH_URL}/logout`,
-  FORGET_PASSWORD: `${API_AUTH_URL}/forgot-password`,
-  RESET_PASSWORD: `${API_AUTH_URL}/reset-password`,
+  SIGN_IN: `${API_URL}/login`,
+  SIGN_OUT: `${API_URL}/logout`,
+  FORGET_PASSWORD: `${API_URL}/forgot-password`,
+  RESET_PASSWORD: `${API_URL}/reset-password`,
 
   //Dashboard
-  GET_DASHBOARD_DATA: `${API_AUTH_URL}/me`,
+  GET_DASHBOARD_DATA: `${API_URL}/me`,
 
   //Roles
   GET_ALL_ROLES: `${API_ROLE_URL}/getall`,
@@ -67,5 +67,9 @@ export const API_PATH = {
   GET_CURRENCY: `${API_COMMON_URL}/get-currency`,
 
   //contacts
-  ADD_CONTACT: `${API_AUTH_URL}/contact`
+  ADD_CONTACT: `${API_URL}/contact`,
+
+  //service
+  ADD_SERVICE: `${API_URL}/create/services`,
+
 };

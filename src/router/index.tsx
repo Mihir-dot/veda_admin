@@ -34,6 +34,8 @@ const RenderRoutes: React.FC<RoleType> = ({ role }) => {
   const ForgetPassword = lazy(() => import("../pages/Login/ForgetPassword"));
   const ResetPassword = lazy(() => import("../pages/Login/ResetPassword"));
   const ErrorPage = lazy(() => import("../pages/ErrorPage"));
+  const Service=lazy(()=>import("../pages/Service"))
+  const ManageService=lazy(()=>import("../components/Service/addService"))
   const UnAuthorizedPage = lazy(
     () => import("../pages/ErrorPage/UnAuthorized")
   );
@@ -63,6 +65,22 @@ const RenderRoutes: React.FC<RoleType> = ({ role }) => {
           ),
         },
         {
+          path: "/service",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <Service />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/service/manage-service",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <ManageService />
+            </Suspense>
+          ),
+        },
+        {
           path: "/contact",
           element: (
             <Suspense fallback={<Loader icon="puff" />}>
@@ -86,22 +104,6 @@ const RenderRoutes: React.FC<RoleType> = ({ role }) => {
             </Suspense>
           ),
         },
-
-        // {
-        //   path: "/cms-management",
-        //   element:
-        //     <Suspense fallback={<Loader icon="puff" />}>
-        //       <CSM />
-        //     </Suspense>
-        // },
-        // {
-        //   path: "/cms-management/add-cms",
-        //   element:
-        //     <Suspense fallback={<Loader icon="puff" />}>
-        //       <AddDetails />
-        //     </Suspense>
-
-        // },
       ],
     },
     {

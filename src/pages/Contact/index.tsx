@@ -5,47 +5,57 @@ import Lucide from "../../base-components/Lucide";
 import Button from "../../base-components/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { formatCreatedAt, getAuthHeaders } from "../../utils/helper";
-import TomSelect from "../../base-components/TomSelect";
-import { FormInput, FormSelect, FormSwitch } from "../../base-components/Form";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import AddContact from "../../components/Contact/addContactData";
 import EditContact from "../../components/Contact/editContactData";
-import Tippy from "../../base-components/Tippy";
+import { API_PATH } from "../../api-services/apiPath";
+import { getAuthHeaders } from "../../utils/helper";
+import { LoadingSpinner } from "../../helper";
 
 const Index: React.FC = () => {
   const [contacts, setContacts] = useState<any[]>([]);
-  console.log("contact----",contacts)
   const [addModal, setAddModal] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
   const [selectedEditId, setSelectedEditId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(2);
   const [dataLimit, setdataLimit] = useState(10);
-  const [autoId, setAutoId] = useState(1);
   const startIndex = (currentPage - 1) * dataLimit + 1;
-  const navigate = useNavigate();
+  const [autoId, setAutoId] = useState(1);
+  const [formLoader, setFormLoader] = useState(false);
 
   const openEditModal = (id: string) => {
     setSelectedEditId(id);
     setEditModal(true);
   };
+  useEffect(() => {
+    fetchContacts();
+  }, []);
 
   const fetchContacts = async () => {
+    setFormLoader(true);
+
     try {
-      const response = await axios.get("http://localhost:5000/api/get-all-contacts");
-      return response.data;
+      const response = await axios.get(`${API_PATH.GET_CONTACTS}`, {
+        headers: getAuthHeaders(),
+      });
+      const resposneData = response.data;
+      setContacts(resposneData);
+      setFormLoader(false);
+      return;
     } catch (error) {
       console.error("Error fetching contacts:", error);
+      setFormLoader(false);
+
       throw error;
     }
   };
 
   const deleteContact = async (id: string) => {
-    console.log("id---",id)
+    console.log("id---", id);
     try {
-      await axios.get(`http://localhost:5000/delete-contacts/${id}`);
+      await axios.get(`${API_PATH.DELETE_CONTACT_DETAILS}/${id}`);
       toast.success("Contact deleted successfully!");
       // Refresh the contact list after deleting
       fetchContacts();
@@ -54,19 +64,9 @@ const Index: React.FC = () => {
       toast.error("Failed to delete contact. Please try again later.");
     }
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const contactsData = await fetchContacts();
-        setContacts(contactsData);
-      } catch (error) {
-        // Handle errors (e.g., display error message)
-        console.error("Error fetching contacts:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const refreshCategoryList = () => {
+    fetchContacts();
+  };
 
   return (
     <>
@@ -81,7 +81,9 @@ const Index: React.FC = () => {
             <Lucide icon="PlusCircle" className="mr-2 w-5" /> Add Contact Data
           </Button>
         </div>
-        {
+        {formLoader ? (
+          <LoadingSpinner />
+        ) : (
           <div className="mt-3">
             <>
               <div className="col-span-12 overflow-auto intro-y lg:overflow-visible">
@@ -92,7 +94,7 @@ const Index: React.FC = () => {
                         #
                       </Table.Th>
                       <Table.Th className="border-b-0 whitespace-nowrap">
-                         Banner Image
+                        Banner Image
                       </Table.Th>
                       <Table.Th className="border-b-0 whitespace-nowrap">
                         Location
@@ -113,22 +115,25 @@ const Index: React.FC = () => {
                       <Table.Tr key={contact._id}>
                         <Table.Td>{startIndex + index}</Table.Td>
                         <Table.Td>
-                          <img src={contact.image} alt="Banner" className="w-10 h-10" />
+                          <img
+                            src={contact.image}
+                            alt="Banner"
+                            className="w-10 h-10"
+                          />
                         </Table.Td>
                         <Table.Td>{contact.location}</Table.Td>
                         <Table.Td>{contact.email}</Table.Td>
                         <Table.Td>{contact.phone}</Table.Td>
                         <Table.Td>
                           <span>
-
-                          <Lucide
-                            icon="Edit"
-                            className="w-4 h-4 text-blue-500 cursor-pointer"
-                            onClick={() => openEditModal(contact._id)}
-                          />
+                            <Lucide
+                              icon="Edit"
+                              className="w-4 h-4 text-blue-500 cursor-pointer"
+                              onClick={() => openEditModal(contact._id)}
+                            />
                           </span>
                           <span>
-{/* 
+                            {/* 
                           <Lucide
                             icon="Delete"
                             className="w-4 h-4 text-blue-500 cursor-pointer"
@@ -144,17 +149,17 @@ const Index: React.FC = () => {
               </div>
             </>
           </div>
-        }
+        )}
         <AddContact
           addModal={addModal}
           setAddModal={setAddModal}
-          refreshCategoryList={fetchContacts}
+          refreshCategoryList={refreshCategoryList}
         />
         <EditContact
           editModal={editModal}
           setEditModal={setEditModal}
           editModalId={selectedEditId}
-          refreshCategoryList={fetchContacts}
+          refreshCategoryList={refreshCategoryList}
         />
       </div>
     </>

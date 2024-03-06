@@ -7,11 +7,7 @@ import toastReducer from "./toastSlice";
 import dashboardReducer from "./dashboard";
 import roleReducer from "./manageRole";
 import permissionReducer from "./managePermission";
-import companyReducer from "./company";
 import listReducer from "./commonList";
-import accountsReducer from "./accounts";
-import userReducer from "./user";
-import usertypeReducer from "./usertype";
 import logsReducer from "./logs";
 
 export const store = configureStore({
@@ -25,10 +21,6 @@ export const store = configureStore({
     permission: permissionReducer,
     dashboard: dashboardReducer,
     toast: toastReducer,
-    company: companyReducer,
-    account: accountsReducer,
-    user: userReducer,
-    usertype: usertypeReducer,
     list: listReducer,
     logs: logsReducer,
   },

@@ -1,3 +1,3 @@
 /// <reference types="vite/client" />
-declare module '../api-services/*';
 declare module 'md5';
+declare module "../../api-services/*";

@@ -1,6 +1,7 @@
 export const validateService = (formData: any) => {
   let errors: any = {};
   const name = formData.get("name");
+  const shortName=formData.get("shortName");
   const titleOne = formData.get("titleOne");
   const containtOne = formData.get("containtOne");
   const titleTwo = formData.get("titleTwo");
@@ -11,6 +12,12 @@ export const validateService = (formData: any) => {
   } else if (name.trim().length === 0) {
     errors.name = "Name cannot be whitespace only";
   }
+  if (!shortName) {
+    errors.shortName = "short Name is required";
+  } else if (shortName.trim().length === 0) {
+    errors.shortName = "Short Name cannot be whitespace only";
+  }
+
   if (!titleOne) {
     errors.titleOne = "Main Title is required";
   } else if (titleOne.trim().length === 0) {

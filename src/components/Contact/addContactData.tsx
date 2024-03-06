@@ -1,13 +1,13 @@
 import React, { ChangeEvent, useState, useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../stores/hooks";
 import { FormInput, FormLabel, FormSwitch } from "../../base-components/Form";
-import clsx from "clsx";
 import Button from "../../base-components/Button";
 import LoadingIcon from "../../base-components/LoadingIcon";
 import { toast } from "react-toastify";
 import { toastMessage } from "../../stores/toastSlice";
 import { Dialog } from "../../base-components/Headless";
 import axios from "axios";
+import {API_PATH} from "../../api-services/apiPath"
 
 
 interface AddContactProps {
@@ -79,7 +79,7 @@ const handleSubmit = async (event: React.FormEvent) => {
     formDataToSend.append("email", formData.email);
     formDataToSend.append("phone", formData.phone);
 
-    await axios.post("http://localhost:5000/api/contacts", formDataToSend, {
+    await axios.post(`${API_PATH.ADD_CONTACT}`, formDataToSend, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "multipart/form-data", // Make sure to set the correct content type
@@ -96,8 +96,6 @@ const handleSubmit = async (event: React.FormEvent) => {
     setIsLoading(false);
   }
 };
-
-
 
   const handleCloseModal = () => {
     setAddModal(false);

@@ -42,11 +42,7 @@ export const sideMenuSlice = createSlice({
   initialState,
   reducers: {
     removeItemFromLocalStorage: () => {
-      localStorage.removeItem("currentPage");
-      localStorage.removeItem("newlyAddedUser");
-      localStorage.removeItem("newlyAddedCompany");
-      localStorage.removeItem("newlyAddedAccounts");
-      localStorage.removeItem("companyId");
+      localStorage.removeItem("newServiceAdded")
     },
   },
   extraReducers: (builder) => {

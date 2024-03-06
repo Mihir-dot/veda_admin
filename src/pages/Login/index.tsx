@@ -20,6 +20,7 @@ import Lucide from "../../base-components/Lucide";
 import DarkModeToggle from "../../components/DarkModeToggle";
 import { toast } from "react-toastify";
 import { toastMessage } from "../../stores/toastSlice";
+import {API_PATH} from  "../../api-services/apiPath";
 
 function Main() {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ function Main() {
         // Start loading
         setIsLoading(true);
         // Login API calling
-        const response = await axios.post('http://localhost:5000/api/login', {
+        const response = await axios.post(`${API_PATH.SIGN_IN}`, {
           email: formData.email,
           password: formData.password
         });

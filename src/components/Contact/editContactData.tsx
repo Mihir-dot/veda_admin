@@ -7,6 +7,9 @@ import Loader from "../Loader";
 import LoadingIcon from "../../base-components/LoadingIcon";
 import { toast } from "react-toastify";
 import clsx from "clsx";
+import axios from "axios";
+import { API_PATH } from "../../api-services/apiPath";
+import { getAuthHeaders } from "../../utils/helper";
 
 interface EditContactProps {
   editModal: boolean;
@@ -16,14 +19,14 @@ interface EditContactProps {
 }
 
 const initialState = {
-  image:null,
+  image: null,
   email: "",
   location: "",
   phone: "",
 };
 
 type TextInputState = {
-  image:File | null;
+  image: File | null;
   email: string;
   location: string;
   phone: string;
@@ -38,11 +41,28 @@ const EditContact: React.FC<EditContactProps> = ({
   const [formData, setFormData] = useState<TextInputState>({
     ...initialState,
   });
+  console.log("data-------",formData)
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [formErrors, setFormErrors] = useState({ name: "" });
   const id = editModalId || "";
 
-  const dispatch = useAppDispatch();
+  useEffect(() => {
+    getContactDetails();
+  }, [editModal]);
+  const getContactDetails = async () => {
+    try {
+      if (editModalId) {
+        const response = await axios.get(
+          `${API_PATH.GET_CONTACT_DETAILS}/${id}`,
+          { headers: getAuthHeaders() }
+        );
+        const contactdata = response.data;
+        setFormData(contactdata);
+      }
+    } catch (error) {
+      console.log("error----", error);
+    }
+  };
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -57,15 +77,49 @@ const EditContact: React.FC<EditContactProps> = ({
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     setFormData((prevData) => ({
-        ...prevData,
-        image: file,
+      ...prevData,
+      image: file,
     }));
-};
+  };
   const handleCloseModal = () => {
     setEditModal(false);
     setFormData(initialState);
   };
 
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setIsLoading(true);
+
+    try {
+      const formDataToSend = new FormData();
+      if (formData.image) {
+        formDataToSend.append("image", formData.image);
+      }
+      formDataToSend.append("location", formData.location);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("phone", formData.phone);
+
+      const response = await axios.put(
+        `${API_PATH.EDIT_CONTACT}/${id}`,
+         formDataToSend ,
+        {
+          headers: getAuthHeaders(),
+        }
+      );
+      if (response.data) {
+        toast.success("Edit Contact successfully.");
+        handleCloseModal();
+        refreshCategoryList();
+      } else {
+        toast.error("Something went wrong");
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <>
       <Dialog open={editModal} onClose={handleCloseModal} staticBackdrop>
@@ -75,20 +129,21 @@ const EditContact: React.FC<EditContactProps> = ({
           </div>
           <form
             className="grid grid-cols-12 gap-4 mt-5 gap-y-5 px-5 pb-5"
+            onSubmit={handleFormSubmit}
             encType="multipart/form-data"
           >
-               <div className="col-span-12 intro-y sm:col-span-12">
-                            <FormLabel htmlFor="input-wizard-1">
-                                Contact Banner Image
-                            </FormLabel>
-                            <FormInput
-                                id="input-wizard-1"
-                                type="file"
-                                name="image"
-                                onChange={handleImageChange}
-                                className="border border-gray-200 p-1"
-                            />
-                        </div>
+            <div className="col-span-12 intro-y sm:col-span-12">
+              <FormLabel htmlFor="input-wizard-1">
+                Contact Banner Image
+              </FormLabel>
+              <FormInput
+                id="input-wizard-1"
+                type="file"
+                name="image"
+                onChange={handleImageChange}
+                className="border border-gray-200 p-1"
+              />
+            </div>
             <div className="col-span-6 intro-y sm:col-span-6">
               <FormLabel htmlFor="input-wizard-1">
                 Email <span className="text-red-600 font-bold">*</span>

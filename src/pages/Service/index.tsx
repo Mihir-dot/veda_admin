@@ -37,6 +37,12 @@ console.log("service---",service)
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleEditClick = (serviceId: string,) => {
+    localStorage.setItem('newServiceAdded',serviceId);
+    navigate('/service/manage-service');
+  };
+
   return (
     <>
       <div>
@@ -107,7 +113,7 @@ console.log("service---",service)
                             <Lucide
                               icon="Edit"
                               className="w-4 h-4 text-blue-500 cursor-pointer"
-                              // onClick={() => openEditModal(service._id)}
+                              onClick={() => handleEditClick(service._id)}
                             />
                           </span>
                           <span>

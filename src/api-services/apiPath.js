@@ -18,4 +18,7 @@ export const API_PATH = {
   ADD_SERVICE: `${API_URL}/create/services`,
   GET_SERVICE:`${API_URL}/get/services`,
   UPDATE_SERVICE:`${API_URL}/update/services`,
+  GET_ALL_SERVICES:`${API_URL}/get/allservices`
 };
+export const IMAGE_BASE_URL = "http://170.64.144.128:5000/get/image"
+export const getImageSource = (urlPath) => `${IMAGE_BASE_URL}?urlPath=/${urlPath?.replace(/\\/g, '/')}`;

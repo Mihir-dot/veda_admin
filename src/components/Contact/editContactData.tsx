@@ -41,7 +41,6 @@ const EditContact: React.FC<EditContactProps> = ({
   const [formData, setFormData] = useState<TextInputState>({
     ...initialState,
   });
-  console.log("data-------",formData)
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [formErrors, setFormErrors] = useState({ name: "" });
   const id = editModalId || "";

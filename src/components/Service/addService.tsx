@@ -9,11 +9,10 @@ import PageHeader from "../PageHeader";
 import axios from "axios";
 import { toast } from "react-toastify";
 import LoadingIcon from "../../base-components/LoadingIcon";
-import { reach } from "yup";
 import { validateService } from "../../utils/validations";
 import { getAuthHeaders } from "../../utils/helper";
 import { API_PATH } from "../../api-services/apiPath";
-import { init } from "../../base-components/TomSelect/tom-select";
+
 
 const initialState = {
   _id: "",
@@ -58,11 +57,11 @@ const AddSevice: React.FC = () => {
   const [initFormData, setInitFormData] = useState<FormState>({
     ...initialState,
   });
+  console.log("initFormData------", initFormData);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const isServiceAdded = localStorage.getItem("newServiceAdded");
-  console.log("id------", isServiceAdded);
 
   const [formErrors, setFormErrors] = useState<ErrorState>({
     name: "",
@@ -124,7 +123,6 @@ const AddSevice: React.FC = () => {
     fieldName: "image" | "banner"
   ) => {
     const file = event.target.files?.[0];
-
     const checkFile = (
       allowedImageExtensions: string[],
       allowedBannerExtensions: string[],
@@ -195,13 +193,11 @@ const AddSevice: React.FC = () => {
     }
   };
 
-
-
   const handleSubmit = async (e: React.FormEvent) => {
     try {
       e.preventDefault();
       const formDataToSend = new FormData();
-      formDataToSend.append("id", initFormData._id);
+      // formDataToSend.append("id", initFormData._id);
       formDataToSend.append("name", initFormData.name);
       formDataToSend.append("sortName", initFormData.sortName);
       formDataToSend.append("titleOne", initFormData.titleOne);
@@ -215,7 +211,6 @@ const AddSevice: React.FC = () => {
       if (initFormData.banner) {
         formDataToSend.append("banner", initFormData.banner);
       }
-      formDataToSend.append("banner", initFormData.banner as File);
 
       const imageErrors = {
         image: "",
@@ -227,16 +222,6 @@ const AddSevice: React.FC = () => {
       if (!initFormData.banner) {
         imageErrors.banner = "Please attach a banner file";
       }
-      const errors = validateService(formDataToSend);
-      if (
-        imageErrors.image ||
-        imageErrors.banner ||
-        Object.keys(errors).length !== 0
-      ) {
-        setFormErrors(errors);
-        setImageError(imageErrors);
-      }
-
       setIsLoading(true);
       if (isServiceAdded) {
         const response = await axios.put(

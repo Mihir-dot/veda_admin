@@ -10,6 +10,7 @@ import TomSelect from "../../base-components/TomSelect";
 import { FormInput, FormSelect, FormSwitch } from "../../base-components/Form";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import {getImageSource} from "../../api-services/apiPath"
 
 const index: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,7 +19,6 @@ const index: React.FC = () => {
   const [autoId, setAutoId] = useState(1);
   const startIndex = (currentPage - 1) * dataLimit + 1;
   const [service, setService] = useState<any[]>([]);
-console.log("service---",service)
   const navigate = useNavigate();
   const fetchData = async () => {
     try {
@@ -93,14 +93,14 @@ console.log("service---",service)
                         <Table.Td>{startIndex + index}</Table.Td>
                         <Table.Td>
                           <img
-                            src={service.bannerLocation}
+                            src={getImageSource(service.bannerLocation)}
                             alt="Banner"
                             className="w-10 h-10"
                           />
                         </Table.Td>
                         <Table.Td>
                           <img
-                            src={service.image}
+                            src={getImageSource(service.imageLocation)}
                             alt="image"
                             className="w-10 h-10"
                           />
@@ -117,13 +117,12 @@ console.log("service---",service)
                             />
                           </span>
                           <span>
-                            {/* 
                           <Lucide
                             icon="Delete"
-                            className="w-4 h-4 text-blue-500 cursor-pointer"
-                            onClick={() => deleteContact(contact._id)}
+                            className="w-4 h-4 text-red-500 cursor-pointer"
+                            // onClick={() => deleteContact(contact._id)}
 
-                          /> */}
+                          />
                           </span>
                         </Table.Td>
                       </Table.Tr>

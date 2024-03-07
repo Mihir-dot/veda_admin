@@ -18,16 +18,16 @@ const index: React.FC = () => {
   const [dataLimit, setdataLimit] = useState(10);
   const [autoId, setAutoId] = useState(1);
   const startIndex = (currentPage - 1) * dataLimit + 1;
-  const [service, setService] = useState<any[]>([]);
+  const [socialMedia, setSocialMedia] = useState<any[]>([]);
   const navigate = useNavigate();
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `${API_PATH.GET_ALL_SERVICES}`,
+        `${API_PATH.GET_SOCIAL_MEDIA}`,
         { headers: getAuthHeaders() }
       );
       if (response.data) {
-        setService(response.data);
+        setSocialMedia(response.data);
       }
     } catch (error) {
       console.error("Error fetching contacts:", error);
@@ -40,33 +40,25 @@ const index: React.FC = () => {
 
   const handleEditClick = (serviceId: string,) => {
     localStorage.setItem('newServiceAdded',serviceId);
-    navigate('/service/manage-service');
+    navigate('/socialMedia/manage-socialMedia');
   };
 
   const deleteContact = async (id: string) => {
     try {
       await axios.delete(`${API_PATH.DELETE_SERVICE}/${id}`);
-      toast.success("Service deleted successfully!");
+      toast.success("socialMedia deleted successfully!");
       // Refresh the contact list after deleting
       fetchData();
     } catch (error) {
-      console.error("Error deleting service:", error);
-      toast.error("Failed to delete service. Please try again later.");
+      console.error("Error deleting socialMedia:", error);
+      toast.error("Failed to delete socialMedia. Please try again later.");
     }
   };
   return (
     <>
       <div>
-        <PageHeader HeaderText="Service List" to="/service" />
-        <div className="flex px-2 flex-wrap gap-5 justify-between mt-5">
-          <Button
-            variant="primary"
-            className="mb-2 ml-auto sm:text-sm text-xs"
-            onClick={() => navigate("/service/manage-service")}
-          >
-            <Lucide icon="PlusCircle" className="mr-2 w-5" /> Add Service
-          </Button>
-        </div>
+        <PageHeader HeaderText="Social Media List" to="/social-media" />
+       
         {/* {formLoader ? <LoadingSpinner /> : ( */}
         {
           <div className="mt-3">
@@ -99,32 +91,32 @@ const index: React.FC = () => {
                     </Table.Tr>
                   </Table.Thead>
                   <Table.Tbody>
-                    {service.map((service, index) => (
-                      <Table.Tr key={service._id}>
+                    {socialMedia.map((socialMedia, index) => (
+                      <Table.Tr key={socialMedia._id}>
                        <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">{startIndex}</Table.Td>
                        <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-4 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
                           <img
-                            src={getImageSource(service.bannerLocation)}
+                            src={getImageSource(socialMedia.bannerLocation)}
                             alt="Banner"
                             className="w-15 h-14"
                           />
                         </Table.Td>
                        <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
                           <img
-                            src={getImageSource(service.imageLocation)}
+                            src={getImageSource(socialMedia.imageLocation)}
                             alt="image"
                             className="w-15 h-14"
                           />
                         </Table.Td>
-                       <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">{service.name}</Table.Td>
-                       <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">{service.titleOne}</Table.Td>
-                       <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">{service.titleTwo}</Table.Td>
+                       <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">{socialMedia.name}</Table.Td>
+                       <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">{socialMedia.titleOne}</Table.Td>
+                       <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">{socialMedia.titleTwo}</Table.Td>
                         
                         <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
                           <div className="flex items-center gap-5">
                             <span
                               className="flex items-center cursor-pointer"
-                              onClick={() => handleEditClick(service._id)}
+                              onClick={() => handleEditClick(socialMedia._id)}
 
                             >
                               <Lucide icon="Edit" className="w-5 h-5 text-blue-600" />
@@ -133,7 +125,7 @@ const index: React.FC = () => {
                           <Lucide
                             icon="Trash2"
                             className="w-4 h-4 text-red-500 cursor-pointer"
-                            onClick={() => deleteContact(service._id)}
+                            onClick={() => deleteContact(socialMedia._id)}
 
                           />
                           </span>

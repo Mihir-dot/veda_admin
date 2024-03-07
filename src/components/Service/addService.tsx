@@ -57,7 +57,6 @@ const AddSevice: React.FC = () => {
   const [initFormData, setInitFormData] = useState<FormState>({
     ...initialState,
   });
-  console.log("initFormData------", initFormData);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isFormValid, setIsFormValid] = useState(false);

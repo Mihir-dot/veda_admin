@@ -67,6 +67,16 @@ export const sideMenuSlice = createSlice({
           pathname: "/contact",
         },
         {
+          icon: "Accessibility",
+          title: "Review & Rating",
+          pathname: "/review",
+        },
+        {
+          icon: "Youtube",
+          title: "Social Media",
+          pathname: "/social-media",
+        },
+        {
           icon: "User",
           title: "User Contact",
           pathname: "/user-contact",

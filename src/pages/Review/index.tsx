@@ -5,86 +5,69 @@ import Lucide from "../../base-components/Lucide";
 import Button from "../../base-components/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { formatCreatedAt, getAuthHeaders } from "../../utils/helper";
+import TomSelect from "../../base-components/TomSelect";
+import { FormInput, FormSelect, FormSwitch } from "../../base-components/Form";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
-import AddContact from "../../components/Contact/addContactData";
-import EditContact from "../../components/Contact/editContactData";
-import { API_PATH, getImageSource } from "../../api-services/apiPath";
-import { getAuthHeaders } from "../../utils/helper";
-import { LoadingSpinner } from "../../helper";
+import { getImageSource, API_PATH } from "../../api-services/apiPath";
 
-const Index: React.FC = () => {
-  const [contacts, setContacts] = useState<any[]>([]);
-  const [addModal, setAddModal] = useState<boolean>(false);
-  const [editModal, setEditModal] = useState<boolean>(false);
-  const [selectedEditId, setSelectedEditId] = useState<string | null>(null);
+const index: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(2);
   const [dataLimit, setdataLimit] = useState(10);
-  const startIndex = (currentPage - 1) * dataLimit + 1;
   const [autoId, setAutoId] = useState(1);
-  const [formLoader, setFormLoader] = useState(false);
-
-  const openEditModal = (id: string) => {
-    setSelectedEditId(id);
-    setEditModal(true);
-  };
-  useEffect(() => {
-    fetchContacts();
-  }, []);
-
-  const fetchContacts = async () => {
-    setFormLoader(true);
-
+  const startIndex = (currentPage - 1) * dataLimit + 1;
+  const [review, setReview] = useState<any[]>([]);
+  const navigate = useNavigate();
+  const fetchData = async () => {
     try {
-      const response = await axios.get(`${API_PATH.GET_CONTACTS}`, {
+      const response = await axios.get(`${API_PATH.GET_REVIEW}`, {
         headers: getAuthHeaders(),
       });
-      const resposneData = response.data;
-      setContacts(resposneData);
-      setFormLoader(false);
-      return;
+      if (response.data) {
+        setReview(response.data);
+      }
     } catch (error) {
       console.error("Error fetching contacts:", error);
-      setFormLoader(false);
-
       throw error;
     }
   };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  const deleteContact = async (id: string) => {
+  const handleEditClick = (reviewId: string) => {
+    localStorage.setItem("reviewId", reviewId);
+    navigate("/review/manage-review");
+  };
+
+  const deleteReview = async (id: string) => {
     try {
-      await axios.delete(`${API_PATH.DELETE_CONTACT_DETAILS}/${id}`, {
-        headers: getAuthHeaders(),
-      });
-      toast.success("Contact deleted successfully!");
+      await axios.delete(`${API_PATH.DELETE_REVIEW}/${id}`,{headers:getAuthHeaders()});
+      toast.success("review deleted successfully!");
       // Refresh the contact list after deleting
-      fetchContacts();
+      fetchData();
     } catch (error) {
-      console.error("Error deleting contact:", error);
-      toast.error("Failed to delete contact. Please try again later.");
+      console.error("Error deleting review:", error);
+      toast.error("Failed to delete review. Please try again later.");
     }
   };
-  const refreshCategoryList = () => {
-    fetchContacts();
-  };
-
   return (
     <>
       <div>
-        <PageHeader HeaderText="Contact List" to="/contact" />
+        <PageHeader HeaderText="Review List" to="/review" />
         <div className="flex px-2 flex-wrap gap-5 justify-between mt-5">
           <Button
             variant="primary"
             className="mb-2 ml-auto sm:text-sm text-xs"
-            onClick={() => setAddModal(true)}
+            onClick={() => navigate("/review/manage-review")}
           >
-            <Lucide icon="PlusCircle" className="mr-2 w-5" /> Add Contact Data
+            <Lucide icon="PlusCircle" className="mr-2 w-5" /> Add Review
           </Button>
         </div>
-        {formLoader ? (
-          <LoadingSpinner />
-        ) : (
+        {/* {formLoader ? <LoadingSpinner /> : ( */}
+        {
           <div className="mt-3">
             <>
               <div className="col-span-12 overflow-auto intro-y lg:overflow-visible">
@@ -95,16 +78,16 @@ const Index: React.FC = () => {
                         #
                       </Table.Th>
                       <Table.Th className="border-b-0 whitespace-nowrap">
-                        Banner Image
+                        Image
                       </Table.Th>
                       <Table.Th className="border-b-0 whitespace-nowrap">
-                        Location
+                        Name
                       </Table.Th>
                       <Table.Th className="border-b-0 whitespace-nowrap">
-                        Email
+                        Rating
                       </Table.Th>
                       <Table.Th className="border-b-0 whitespace-nowrap">
-                        Phone No
+                        Post
                       </Table.Th>
                       <Table.Th className="border-b-0 whitespace-nowrap">
                         Action
@@ -112,32 +95,34 @@ const Index: React.FC = () => {
                     </Table.Tr>
                   </Table.Thead>
                   <Table.Tbody>
-                    {contacts.map((contact, index) => (
-                      <Table.Tr key={contact._id}>
+                    {review.map((review, index) => (
+                      <Table.Tr key={review._id}>
                         <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
                           {startIndex + index}
                         </Table.Td>
                         <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-4 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
                           <img
-                            src={getImageSource(contact.path)}
+                            src={getImageSource(review.pictureLocation)}
                             alt="Banner"
-                            className="w-15 h-14"
+                            className="w-14 h-14"
                           />
                         </Table.Td>
+
                         <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
-                          {contact.location}
+                          {review.name}
                         </Table.Td>
                         <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
-                          {contact.email}
+                          {review.rating}
                         </Table.Td>
                         <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
-                          {contact.phone}
+                          {review.post}
                         </Table.Td>
+
                         <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
                           <div className="flex items-center gap-5">
                             <span
                               className="flex items-center cursor-pointer"
-                              onClick={() => openEditModal(contact._id)}
+                              onClick={() => handleEditClick(review._id)}
                             >
                               <Lucide
                                 icon="Edit"
@@ -148,7 +133,7 @@ const Index: React.FC = () => {
                               <Lucide
                                 icon="Trash2"
                                 className="w-4 h-4 text-red-500 cursor-pointer"
-                                onClick={() => deleteContact(contact._id)}
+                                onClick={() => deleteReview(review._id)}
                               />
                             </span>
                           </div>
@@ -159,22 +144,24 @@ const Index: React.FC = () => {
                 </Table>
               </div>
             </>
+            {/* Next page link */}
+            {currentPage < totalPages && (
+              <Button onClick={() => setCurrentPage(currentPage + 1)}>
+                <Lucide icon="ChevronRight" className="w-4 h-4" />
+              </Button>
+            )}
+
+            <Button
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              <Lucide icon="ChevronsRight" className="w-4 h-4" />
+            </Button>
           </div>
-        )}
-        <AddContact
-          addModal={addModal}
-          setAddModal={setAddModal}
-          refreshCategoryList={refreshCategoryList}
-        />
-        <EditContact
-          editModal={editModal}
-          setEditModal={setEditModal}
-          editModalId={selectedEditId}
-          refreshCategoryList={refreshCategoryList}
-        />
+        }
       </div>
     </>
   );
 };
 
-export default Index;
+export default index;

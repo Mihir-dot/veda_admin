@@ -40,3 +40,35 @@ export const validateService = (formData: any) => {
   }
   return errors;
 };
+
+
+export const validateReview = (formData: any) => {
+  let errors: any = {};
+  const name = formData.get("name");
+  const post=formData.get("post");
+  const rating = formData.get("rating");
+  const text = formData.get("text");
+
+  if (!name) {
+    errors.name = "Name is required";
+  } else if (name.trim().length === 0) {
+    errors.name = "Name cannot be whitespace only";
+  }
+  if (!post) {
+    errors.post = "Post is required";
+  } else if (post.trim().length === 0) {
+    errors.post = "Post cannot be whitespace only";
+  }
+
+  if (!rating) {
+    errors.rating = "Rating is required";
+  } else if (rating.trim().length === 0) {
+    errors.rating = "Rating cannot be whitespace only";
+  }
+  if (!text) {
+    errors.text = "Review Text is required";
+  } else if (text.trim().length === 0) {
+    errors.text = "Review Text cannot be whitespace only";
+  }
+  return errors;
+};

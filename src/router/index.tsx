@@ -35,7 +35,11 @@ const RenderRoutes: React.FC<RoleType> = ({ role }) => {
   const ResetPassword = lazy(() => import("../pages/Login/ResetPassword"));
   const ErrorPage = lazy(() => import("../pages/ErrorPage"));
   const Service=lazy(()=>import("../pages/Service"))
+  const Review=lazy(()=>import("../pages/Review"))
   const ManageService=lazy(()=>import("../components/Service/addService"))
+  const ManageReview=lazy(()=>import("../components/Review/addReview"))
+  const SocialMedia =lazy(()=>import("../pages/SocialMedia"))
+
   const UnAuthorizedPage = lazy(
     () => import("../pages/ErrorPage/UnAuthorized")
   );
@@ -93,6 +97,30 @@ const RenderRoutes: React.FC<RoleType> = ({ role }) => {
           element: (
             <Suspense fallback={<Loader icon="puff" />}>
               <Contact />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/review",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <Review />
+            </Suspense>
+          ),
+        },
+        {
+          path: "review/manage-review",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <ManageReview />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/social-media",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <SocialMedia />
             </Suspense>
           ),
         },

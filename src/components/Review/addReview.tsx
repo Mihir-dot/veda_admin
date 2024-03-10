@@ -168,10 +168,9 @@ const AddReview: React.FC = () => {
             headers: getAuthHeaders(),
           }
         );
-        console.log("res---------", response);
         if (response.data) {
           toast.success(response.data.message);
-          localStorage.removeItem("newReviewAdded");
+          localStorage.removeItem("reviewId");
           navigate("/review");
         }
       } else {
@@ -202,7 +201,7 @@ const AddReview: React.FC = () => {
               navigate: "#",
             },
           ]}
-          to="/Review"
+          to="/review"
         />
         <div className="flex items-center mt-5">
           <h2 className="mr-auto text-lg font-medium intro-y">
@@ -356,8 +355,8 @@ const AddReview: React.FC = () => {
                   className="ml-2"
                   type="button"
                   onClick={() => {
-                    localStorage.removeItem("newServiceAdded");
-                    navigate("/service");
+                    localStorage.removeItem("newReviewAdded");
+                    navigate("/review");
                   }}
                 >
                   Cancel

@@ -1,7 +1,7 @@
 {
   "name": "driver-007",
   "private": true,
-  "homepage": "/admin_site",
+  "homepage": "/vidaAdmin",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

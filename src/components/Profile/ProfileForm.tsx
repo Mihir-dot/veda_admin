@@ -15,7 +15,7 @@ import {
 import Lucide from "../../base-components/Lucide";
 import LoadingIcon from "../../base-components/LoadingIcon";
 import { toast } from "react-toastify";
-import { updateUserProfile } from "../../stores/user";
+// import { updateUserProfile } from "../../stores/user";
 
 const initialState = {
   name: "",
@@ -113,31 +113,31 @@ const ProfileForm: React.FC = () => {
   const submitUserInfo = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errors: { name: string } = { name: "" };
-    if (initFormData.name === "") {
-      errors.name = "Name is required";
-      setFormErrors(errors);
-    }
-    if (errors.name) return;
-    try {
-      setIsLoading(true);
-      const payload = {
-        name: initFormData.name,
-        password: initFormData.password ? initFormData.password : "",
-      };
-      if (initFormData.password === "") {
-        delete payload.password;
-      }
-      const res = await dispatch(updateUserProfile(payload));
-      if (res.payload === undefined)
-        return toast.error("Something went wrong.");
-      localStorage.setItem("username", JSON.stringify(payload.name));
-      toast.success(res.payload.message || "User updated succesfully");
-      navigate("/");
-    } catch (error) {
-      console.log("Err--", error);
-    } finally {
-      setIsLoading(false);
-    }
+    // if (initFormData.name === "") {
+    //   errors.name = "Name is required";
+    //   setFormErrors(errors);
+    // }
+    // if (errors.name) return;
+    // try {
+    //   setIsLoading(true);
+    //   const payload = {
+    //     name: initFormData.name,
+    //     password: initFormData.password ? initFormData.password : "",
+    //   };
+    //   if (initFormData.password === "") {
+    //     delete payload.password;
+    //   }
+    //   const res = await dispatch(updateUserProfile(payload));
+    //   if (res.payload === undefined)
+    //     return toast.error("Something went wrong.");
+    //   localStorage.setItem("username", JSON.stringify(payload.name));
+    //   toast.success(res.payload.message || "User updated succesfully");
+    //   navigate("/");
+    // } catch (error) {
+    //   console.log("Err--", error);
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   return (
@@ -205,67 +205,6 @@ const ProfileForm: React.FC = () => {
           value={initFormData.email}
         />
       </div>
-      {userState?.user?.company_id && (
-        <div className="col-span-12 intro-y sm:col-span-6">
-          <FormLabel htmlFor="input-wizard-4">Company</FormLabel>
-          <Controller
-            name="companySelect"
-            control={control}
-            render={({ field: { value } }) => {
-              const selectedState: any = companyDropdownOptions?.find(
-                (option: ListOptions) => option.id === value
-              );
-              const selectedUser = companyDropdownOptions?.find(
-                (option: ListOptions) =>
-                  option.id === initFormData.companySelect
-              );
-              const defaultValue =
-                (selectedState === undefined ? selectedUser : selectedState) ||
-                null;
-              return (
-                <>
-                  <Autocomplete
-                    disablePortal
-                    size="small"
-                    id="combo-box-demo"
-                    value={defaultValue}
-                    options={companyDropdownOptions?.map(
-                      (data: ListOptions) => ({
-                        value: data.id,
-                        label: data.name,
-                      })
-                    )}
-                    getOptionLabel={(option) => option.label ?? option.name}
-                    onChange={() => {}}
-                    isOptionEqualToValue={(option, value) =>
-                      option.value === (value.id ? value.id : null)
-                    }
-                    disabled
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Company"
-                        className={clsx(
-                          "disabled:bg-slate-100 custom-select dark:!border-blac disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent",
-                          "[&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent",
-                          "transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80"
-                        )}
-                        InputLabelProps={{
-                          style: {
-                            fontSize: 12,
-                            color: `${darkMode ? "inherit" : ""}`,
-                            paddingTop: 3,
-                          },
-                        }}
-                      />
-                    )}
-                  />
-                </>
-              );
-            }}
-          />
-        </div>
-      )}
 
       <div className="flex items-center col-span-12 mt-5 gap-5 intro-y">
         <Button

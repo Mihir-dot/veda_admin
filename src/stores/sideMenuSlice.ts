@@ -43,6 +43,8 @@ export const sideMenuSlice = createSlice({
   reducers: {
     removeItemFromLocalStorage: () => {
       localStorage.removeItem("newServiceAdded")
+      localStorage.removeItem("reviewId")
+
     },
   },
   extraReducers: (builder) => {
@@ -67,7 +69,7 @@ export const sideMenuSlice = createSlice({
           pathname: "/contact",
         },
         {
-          icon: "Accessibility",
+          icon: "Building",
           title: "Review & Rating",
           pathname: "/review",
         },

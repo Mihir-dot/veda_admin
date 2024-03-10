@@ -14,7 +14,7 @@ import clsx from "clsx";
 import { Preview } from "../../base-components/PreviewComponent";
 import LoadingIcon from "../../base-components/LoadingIcon";
 import logoUrl from "../../assets/images/driver007-dark.png";
-import logoDarkUrl from "../../assets/images/driver007.png";
+import logoDarkUrl from "../../assets/images/driver007-dark.png";
 import { selectDarkMode } from "../../stores/darkModeSlice";
 import Lucide from "../../base-components/Lucide";
 import DarkModeToggle from "../../components/DarkModeToggle";
@@ -128,7 +128,7 @@ function Main() {
             <img
               className="w-40 mx-auto"
               alt="vida Admin"
-              // src={darkMode ? logoUrl : logoDarkUrl}
+              src={darkMode ? logoUrl : logoDarkUrl}
             />
             <div className="text-lg sm:text-2xl font-medium text-center dark:text-slate-300 mt-5">
               Login to Your Account!

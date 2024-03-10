@@ -230,7 +230,6 @@ const AddSevice: React.FC = () => {
             headers: getAuthHeaders(),
           }
         );
-        console.log("res---------", response);
         if (response.data) {
           toast.success(response.data.message);
           localStorage.removeItem("newServiceAdded");

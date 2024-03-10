@@ -40,6 +40,7 @@ const RenderRoutes: React.FC<RoleType> = ({ role }) => {
   const ManageReview=lazy(()=>import("../components/Review/addReview"))
   const SocialMedia =lazy(()=>import("../pages/SocialMedia"))
 
+
   const UnAuthorizedPage = lazy(
     () => import("../pages/ErrorPage/UnAuthorized")
   );
@@ -118,6 +119,14 @@ const RenderRoutes: React.FC<RoleType> = ({ role }) => {
         },
         {
           path: "/social-media",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <SocialMedia />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/socialmedia-management/edit-socialmedia",
           element: (
             <Suspense fallback={<Loader icon="puff" />}>
               <SocialMedia />

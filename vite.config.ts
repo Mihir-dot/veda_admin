@@ -4,7 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/admin_site/",
+  base: "/vidaAdmin/",
   build: {
     commonjsOptions: {
       include: ["tailwind.config.js", "node_modules/**"],

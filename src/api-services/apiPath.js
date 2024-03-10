@@ -30,7 +30,8 @@ export const API_PATH = {
 
 //Social Media
 GET_SOCIAL_MEDIA:`${API_URL}/get/all/social/media`,
-UPDATE_SOCIAL_MEDIA: `${API_URL}/update/social/media`
+UPDATE_SOCIAL_MEDIA: `${API_URL}/update/social/media`,
+GET_SOCIAL_MEDIA_DETAILS: `${API_URL}/get/social/media/ById`
 };
 export const IMAGE_BASE_URL = "http://170.64.144.128:5000/get/image"
 export const getImageSource = (urlPath) => `${IMAGE_BASE_URL}?urlPath=/${urlPath?.replace(/\\/g, '/')}`;

@@ -23,23 +23,29 @@ interface RoleType {
 
 const RenderRoutes: React.FC<RoleType> = ({ role }) => {
   // const auth: AuthType = useAppSelector(selectAuth);
-  const auth= localStorage.getItem("token")
-
+  const auth = localStorage.getItem("token");
 
   const DashboardOverview1 = lazy(() => import("../pages/DashboardOverview1"));
   const Profile = lazy(() => import("../pages/Profile"));
   const Login = lazy(() => import("../pages/Login"));
-  const Contact =lazy(()=>import("../pages/Contact"))
- const UserContact = lazy(()=>import("../pages/UserContactData"))
+  const Contact = lazy(() => import("../pages/Contact"));
+  const UserContact = lazy(() => import("../pages/UserContactData"));
   const ForgetPassword = lazy(() => import("../pages/Login/ForgetPassword"));
   const ResetPassword = lazy(() => import("../pages/Login/ResetPassword"));
   const ErrorPage = lazy(() => import("../pages/ErrorPage"));
-  const Service=lazy(()=>import("../pages/Service"))
-  const Review=lazy(()=>import("../pages/Review"))
-  const ManageService=lazy(()=>import("../components/Service/addService"))
-  const ManageReview=lazy(()=>import("../components/Review/addReview"))
-  const SocialMedia =lazy(()=>import("../pages/SocialMedia"))
-
+  const Service = lazy(() => import("../pages/Service"));
+  const Review = lazy(() => import("../pages/Review"));
+  const ManageService = lazy(() => import("../components/Service/addService"));
+  const ManageReview = lazy(() => import("../components/Review/addReview"));
+  const SocialMedia = lazy(() => import("../pages/SocialMedia"));
+  const AboutUs = lazy(() => import("../pages/About"));
+  const Home = lazy(() => import("../pages/home"));
+  const ManageHome = lazy(() => import("../components/Home/addHome"));
+  const ManageAbout = lazy(() => import("../components/About/addAboutData"));
+  const ManageFaq = lazy(() => import("../components/Faqs/addFaq"));
+  const Faqs = lazy(() => import("../pages/Faqs"));
+  const ManagePodcast = lazy(() => import("../components/PodCast/addPodCast"));
+  const PodCast = lazy(() => import("../pages/PodCast"));
 
   const UnAuthorizedPage = lazy(
     () => import("../pages/ErrorPage/UnAuthorized")
@@ -62,10 +68,42 @@ const RenderRoutes: React.FC<RoleType> = ({ role }) => {
           ),
         },
         {
+          path: "/home",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <Home />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/home/manage-home-details",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <ManageHome />
+            </Suspense>
+          ),
+        },
+        {
           path: "/profile",
           element: (
             <Suspense fallback={<Loader icon="puff" />}>
               <Profile />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/about",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <AboutUs />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/about/manage-about",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <ManageAbout />
             </Suspense>
           ),
         },
@@ -130,6 +168,38 @@ const RenderRoutes: React.FC<RoleType> = ({ role }) => {
           element: (
             <Suspense fallback={<Loader icon="puff" />}>
               <SocialMedia />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/faq",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <Faqs />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/faq/manage-faq",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <ManageFaq />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/podcast",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <PodCast />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/podcast/manage-podcast",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <ManagePodcast />
             </Suspense>
           ),
         },

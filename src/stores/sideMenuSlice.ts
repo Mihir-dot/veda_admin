@@ -53,10 +53,21 @@ export const sideMenuSlice = createSlice({
       state.menu = [
         "START MENU",
         {
-          icon: "Home",
+          icon: "Database",
           title: "Dashboard",
           pathname: "/",
           custom_key: "dashboard",
+        },
+        {
+          icon: "Home",
+          title: "Home",
+          pathname: "/home",
+          custom_key: "home",
+        },
+        {
+          icon: "Building2",
+          title: "About Us",
+          pathname: "/about",
         },
         {
           icon: "Album",
@@ -64,10 +75,35 @@ export const sideMenuSlice = createSlice({
           pathname: "/service",
         },
         {
+          icon: "Navigation",
+          title: "Advocacy & Career",
+          subMenu: [
+            {
+              icon: "Album",
+              pathname: "/podcast",
+              title: "Podcast",
+              key: "manage-podcast",
+            },
+            {
+              icon: "RefreshCw",
+              pathname: "/resource",
+              title: "Resources",
+              key: "manage-resource",
+            },
+            {
+              icon: "Factory",
+              pathname: "/founder",
+              title: "Founder / C.E.O",
+              key: "manage-founder",
+            },
+          ],
+        },
+        {
           icon: "Contact",
           title: "Contact",
           pathname: "/contact",
         },
+      
         {
           icon: "Building",
           title: "Review & Rating",
@@ -78,10 +114,17 @@ export const sideMenuSlice = createSlice({
           title: "Social Media",
           pathname: "/social-media",
         },
+     
+        // {
+        //   icon: "User",
+        //   title: "User Contact",
+        //   pathname: "/user-contact",
+        // },
+      
         {
-          icon: "User",
-          title: "User Contact",
-          pathname: "/user-contact",
+          icon: "Factory",
+          title: "FAQs",
+          pathname: "/faq",
         },
        
       ];

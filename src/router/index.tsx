@@ -46,6 +46,10 @@ const RenderRoutes: React.FC<RoleType> = ({ role }) => {
   const Faqs = lazy(() => import("../pages/Faqs"));
   const ManagePodcast = lazy(() => import("../components/PodCast/addPodCast"));
   const PodCast = lazy(() => import("../pages/PodCast"));
+  const ManageResources = lazy(() => import("../components/Resources/addResources"));
+  const Resources = lazy(() => import("../pages/Resources"));
+  const ManageFounder = lazy(() => import("../components/Founder/addFounder"));
+  const Founder = lazy(() => import("../pages/Founder"));
 
   const UnAuthorizedPage = lazy(
     () => import("../pages/ErrorPage/UnAuthorized")
@@ -200,6 +204,38 @@ const RenderRoutes: React.FC<RoleType> = ({ role }) => {
           element: (
             <Suspense fallback={<Loader icon="puff" />}>
               <ManagePodcast />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/resources",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <Resources />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/resources/manage-resources",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <ManageResources />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/founder",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <Founder />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/founder/manage-founder",
+          element: (
+            <Suspense fallback={<Loader icon="puff" />}>
+              <ManageFounder />
             </Suspense>
           ),
         },

@@ -43,7 +43,7 @@ export const API_PATH = {
 
   // Home Data
   GET_PATH: `${API_URL}/get/allPath`,
-  GET_HOME_DATA:`${API_URL}/get/allDashboard`,
+  GET_HOME_DATA: `${API_URL}/get/allDashboard`,
   ADD_HOME_DATA: `${API_URL}/create/dashboard`,
   UPDATE_HOME_DATA: `${API_URL}/update/dashboard`,
   GET_HOME_DETAILS: `${API_URL}/get/dashboard`,
@@ -61,6 +61,20 @@ export const API_PATH = {
   ADD_PODCAST_DETAILS: `${API_URL}/create/prodcast`,
   UPDATE_PODCAST_DETAILS: `${API_URL}/update/prodcast`,
   DELETE_PODCAST_DETAILS: `${API_URL}/delete/prodcast`,
+
+  //Resources
+  GET_RESOURCES_DATA: `${API_URL}/get/allresource`,
+  GET_RESOURCES_DETAILS: `${API_URL}/get/resource`,
+  ADD_RESOURCES_DETAILS: `${API_URL}/create/resource`,
+  UPDATE_RESOURCES_DETAILS: `${API_URL}/update/resource`,
+  DELETE_RESOURCES_DETAILS: `${API_URL}/delete/resource`,
+
+  //Founder /C.E.O
+  GET_FOUNDER_DATA: `${API_URL}/get/allblog`,
+  GET_FOUNDER_DETAILS: `${API_URL}/get/blog`,
+  ADD_FOUNDER_DETAILS: `${API_URL}/create/blog`,
+  UPDATE_FOUNDER_DETAILS: `${API_URL}/update/blog`,
+  DELETE_FOUNDER_DETAILS: `${API_URL}/delete/blog`,
 
 };
 export const IMAGE_BASE_URL = "http://170.64.144.128:5000/get/image"

@@ -86,9 +86,9 @@ export const sideMenuSlice = createSlice({
             },
             {
               icon: "RefreshCw",
-              pathname: "/resource",
+              pathname: "/resources",
               title: "Resources",
-              key: "manage-resource",
+              key: "manage-resources",
             },
             {
               icon: "Factory",

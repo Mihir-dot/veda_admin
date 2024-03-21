@@ -212,7 +212,7 @@ const EditContact: React.FC<EditContactProps> = ({
                     />
                   </>
                 ) : (
-                  "Update Category"
+                  "Update Contact"
                 )}
               </Button>
             </div>

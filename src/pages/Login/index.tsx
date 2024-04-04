@@ -13,8 +13,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import clsx from "clsx";
 import { Preview } from "../../base-components/PreviewComponent";
 import LoadingIcon from "../../base-components/LoadingIcon";
-import logoUrl from "../../assets/images/driver007-dark.png";
-import logoDarkUrl from "../../assets/images/driver007-dark.png";
+import logoUrl from "../../assets/images/vida-logo.png";
+import logoDarkUrl from "../../assets/images/vida-logo.png";
 import { selectDarkMode } from "../../stores/darkModeSlice";
 import Lucide from "../../base-components/Lucide";
 import DarkModeToggle from "../../components/DarkModeToggle";
@@ -206,7 +206,7 @@ function Main() {
                   </div>
                 </div>
                 <div className="flex mt-4 text-xs justify-end text-slate-500 sm:text-sm">
-                  <Link to={`/forget-password`}>Forgot Password?</Link>
+                  {/*<Link to={`/forget-password`}>Forgot Password?</Link>*/}
                 </div>
                 <div className="mt-5 text-center xl:text-left">
                   <Button

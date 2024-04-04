@@ -9,10 +9,6 @@ import { selectDarkMode } from "../stores/darkModeSlice";
 
 import { resetToast, toastMessage } from "../stores/toastSlice";
 
-function getUserRole() {
-  return localStorage.getItem("role");
-}
-
 interface AuthType {
   token: string;
 }

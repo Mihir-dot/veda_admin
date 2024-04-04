@@ -99,7 +99,7 @@ module.exports = {
       addBase({
         // Default colors
         ":root": {
-          "--color-primary": "0 25 95",
+          "--color-primary": "1 20 35",
           "--color-secondary": toRGB(colors.slate["200"]),
           "--color-success": toRGB(colors.teal["600"]),
           "--color-info": toRGB(colors.cyan["500"]),
@@ -125,7 +125,7 @@ module.exports = {
         },
         // Theme 1 colors
         ".theme-1": {
-          "--color-primary": toRGB(colors.blue["800"]),
+          "--color-primary": toRGB(colors.gray["800"]),
           "--color-secondary": toRGB(colors.slate["200"]),
           "--color-success": toRGB(colors.teal["600"]),
           "--color-info": toRGB(colors.cyan["500"]),

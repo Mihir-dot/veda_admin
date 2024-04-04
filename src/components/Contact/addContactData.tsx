@@ -74,7 +74,9 @@ const handleSubmit = async (event: React.FormEvent) => {
     }
 
     const formDataToSend = new FormData();
-    formDataToSend.append("image", formData.image);
+    if (formData.image) {
+      formDataToSend.append("image", formData.image);
+    }
     formDataToSend.append("location", formData.location);
     formDataToSend.append("email", formData.email);
     formDataToSend.append("phone", formData.phone);

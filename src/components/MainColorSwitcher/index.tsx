@@ -38,7 +38,7 @@ function Main() {
             switchColorScheme("default");
           }}
           className={clsx({
-            "block w-8 h-8 cursor-pointer bg-[#00195f] rounded-full border-4 mr-1 hover:border-slate-200":
+            "block w-8 h-8 cursor-pointer bg-gray-800 rounded-full border-4 mr-1 hover:border-slate-200":
               true,
             "border-slate-300 dark:border-darkmode-800/80":
               colorScheme == "default",
@@ -50,7 +50,7 @@ function Main() {
             switchColorScheme("theme-1");
           }}
           className={clsx({
-            "block w-8 h-8 cursor-pointer bg-blue-800 rounded-full border-4 mr-1 hover:border-slate-200":
+            "block w-8 h-8 cursor-pointer bg-[#353435] rounded-full border-4 mr-1 hover:border-slate-200":
               true,
             "border-slate-300 dark:border-darkmode-800/80":
               colorScheme == "theme-1",
@@ -62,7 +62,7 @@ function Main() {
             switchColorScheme("theme-2");
           }}
           className={clsx({
-            "block w-8 h-8 cursor-pointer bg-[#2d3c5a] rounded-full border-4 mr-1 hover:border-slate-200":
+            "block w-8 h-8 cursor-pointer bg-[#232333] rounded-full border-4 mr-1 hover:border-slate-200":
               true,
             "border-slate-300 dark:border-darkmode-800/80":
               colorScheme == "theme-2",

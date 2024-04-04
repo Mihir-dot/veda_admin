@@ -58,7 +58,7 @@ const index: React.FC = () => {
     <>
       <div>
         <PageHeader HeaderText="Home Page" to="/home" />
-        <div className="flex px-2 flex-wrap gap-5 justify-between mt-5">
+        {/* <div className="flex px-2 flex-wrap gap-5 justify-between mt-5">
           <Button
             variant="primary"
             className="mb-2 ml-auto sm:text-sm text-xs"
@@ -66,10 +66,11 @@ const index: React.FC = () => {
           >
             <Lucide icon="PlusCircle" className="mr-2 w-5" /> Add Home Details
           </Button>
-        </div>
+        </div> */}
         {/* {formLoader ? <LoadingSpinner /> : ( */}
         {
-          <div className="mt-3">
+          <div className="mt-14">
+
             <>
               <div className="col-span-12 overflow-auto intro-y lg:overflow-visible">
                 <Table className="border-spacing-y-[10px] border-separate -mt-2">

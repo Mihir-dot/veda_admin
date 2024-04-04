@@ -73,7 +73,7 @@ const Index: React.FC = () => {
     <>
       <div>
         <PageHeader HeaderText="Contact List" to="/contact" />
-        <div className="flex px-2 flex-wrap gap-5 justify-between mt-5">
+        {/* <div className="flex px-2 flex-wrap gap-5 justify-between mt-5">
           <Button
             variant="primary"
             className="mb-2 ml-auto sm:text-sm text-xs"
@@ -81,11 +81,11 @@ const Index: React.FC = () => {
           >
             <Lucide icon="PlusCircle" className="mr-2 w-5" /> Add Contact Data
           </Button>
-        </div>
+        </div> */}
         {formLoader ? (
           <LoadingSpinner />
         ) : (
-          <div className="mt-3">
+          <div className="mt-14">
             <>
               <div className="col-span-12 overflow-auto intro-y lg:overflow-visible">
                 <Table className="border-spacing-y-[10px] border-separate -mt-2">
@@ -144,13 +144,13 @@ const Index: React.FC = () => {
                                 className="w-5 h-5 text-blue-600"
                               />
                             </span>
-                            <span>
+                            {/* <span>
                               <Lucide
                                 icon="Trash2"
                                 className="w-4 h-4 text-red-500 cursor-pointer"
                                 onClick={() => deleteContact(contact._id)}
                               />
-                            </span>
+                            </span> */}
                           </div>
                         </Table.Td>
                       </Table.Tr>

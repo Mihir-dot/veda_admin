@@ -141,17 +141,6 @@ export const authStore = createSlice({
           if (action.payload.status === 200) {
             state.token = action.payload.data.data.token;
             state.user = action.payload.data.data.user;
-            localStorage.setItem("token", state.token);
-            localStorage.setItem("user", JSON.stringify(state.user));
-            localStorage.setItem(
-              "role",
-              action.payload.data.data.user.role.role_name
-            );
-            localStorage.setItem(
-              "permissions",
-              JSON.stringify(action.payload.data.data.user.permissions)
-            );
-            localStorage.setItem("username", JSON.stringify(state.user.name));
           }
         }
       })
@@ -161,11 +150,6 @@ export const authStore = createSlice({
       .addCase(setLogout.fulfilled, (state) => {
         state.token = null;
         state.user = null;
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        localStorage.removeItem("role");
-        localStorage.removeItem("username");
-        localStorage.setItem("permissions", JSON.stringify({}));
       })
       .addCase(setLogout.rejected, (state) => {
         state.error = "Error";

@@ -10,7 +10,6 @@ import {
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import useCallbackState from "../../utils/callback-state";
 import {
-  fetchPermissions,
   removeItemFromLocalStorage,
   selectSideMenu,
 } from "../../stores/sideMenuSlice";
@@ -37,9 +36,6 @@ function Main() {
     setFormattedMenu(sideMenu());
   }, [sideMenuStore, location.pathname]);
 
-  useEffect(() => {
-    dispatch(fetchPermissions());
-  }, [dispatch]);
 
   const [simpleMenu, setSimpleMenu] = useCallbackState({
     active: false,
@@ -172,7 +168,10 @@ function Main() {
         <div className="pt-4 mb-4">
           <div
             className={clsx(["flex items-center h-[33px]"])}
-            onClick={() => dispatch(removeItemFromLocalStorage())}
+            onClick={() =>{
+              console.log("hello--")
+              dispatch(removeItemFromLocalStorage())
+            } }
           >
             <Link to="/" className="flex items-center intro-x justify-center">
               <img
@@ -294,8 +293,10 @@ function Main() {
                             key={subMenuKey}
                             onClick={(e) => {
                               toggleMobileMenu(e);
+                              console.log("dispatch--")
                               dispatch(removeItemFromLocalStorage());
                             }}
+
                           >
                             <Menu
                               className={clsx({
@@ -439,10 +440,11 @@ function Menu(props: {
         props.className,
       ])}
       onClick={(event: React.MouseEvent) => {
-        event.preventDefault();
-        linkTo(props.menu, navigate);
-        setFormattedMenu([...formattedMenu]);
-      }}
+  event.preventDefault();
+  linkTo(props.menu, navigate);
+  setFormattedMenu([...formattedMenu]);
+}}
+
     >
       <div
         className={clsx({

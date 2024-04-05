@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../stores/hooks";
 import { selectDarkMode } from "../../stores/darkModeSlice";
 import Button from "../../base-components/Button";
 import { useNavigate } from "react-router-dom";
-import { getUserData, setDashboardData } from "../../stores/dashboard";
+import { getUserData } from "../../stores/dashboard";
 import {
   fetchCompanyDropdown,
   getCompanyDropdownData,
@@ -65,7 +65,6 @@ const ProfileForm: React.FC = () => {
 
   useEffect(() => {
     if (userState.user === null) {
-      dispatch(setDashboardData());
       dispatch(fetchCompanyDropdown());
     }
   }, []);

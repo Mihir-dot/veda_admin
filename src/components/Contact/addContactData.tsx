@@ -7,8 +7,7 @@ import { toast } from "react-toastify";
 import { toastMessage } from "../../stores/toastSlice";
 import { Dialog } from "../../base-components/Headless";
 import axios from "axios";
-import {API_PATH} from "../../api-services/apiPath"
-
+import { API_PATH } from "../../api-services/apiPath";
 
 interface AddContactProps {
   addModal: boolean;
@@ -17,14 +16,14 @@ interface AddContactProps {
 }
 
 const initialState = {
-  image:null,
+  image: null,
   email: "",
   location: "",
   phone: "",
 };
 
 type TextInputState = {
-  image: File | null
+  image: File | null;
   email: string;
   location: string;
   phone: string;
@@ -39,7 +38,7 @@ const AddContact: React.FC<AddContactProps> = ({
   const [formData, setFormData] = useState<TextInputState>({
     ...initialState,
   });
-  console.log("formData-----",formData)
+  console.log("formData-----", formData);
   const toastMsg = useAppSelector(toastMessage);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -58,46 +57,46 @@ const AddContact: React.FC<AddContactProps> = ({
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     setFormData((prevData) => ({
-        ...prevData,
-        image: file,
+      ...prevData,
+      image: file,
     }));
-};
+  };
 
-const handleSubmit = async (event: React.FormEvent) => {
-  event.preventDefault();
-  setIsLoading(true);
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setIsLoading(true);
 
-  try {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      throw new Error("Token not found in localStorage");
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("Token not found in localStorage");
+      }
+
+      const formDataToSend = new FormData();
+      if (formData.image) {
+        formDataToSend.append("image", formData.image);
+      }
+      formDataToSend.append("location", formData.location);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("phone", formData.phone);
+
+      await axios.post(`${API_PATH.ADD_CONTACT}`, formDataToSend, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data", // Make sure to set the correct content type
+        },
+      });
+
+      toast.success("Contact added successfully!");
+      refreshCategoryList();
+      handleCloseModal();
+    } catch (error) {
+      console.error("Error adding contact:", error);
+      toast.error("Failed to add contact. Please try again later.");
+    } finally {
+      setIsLoading(false);
     }
-
-    const formDataToSend = new FormData();
-    if (formData.image) {
-      formDataToSend.append("image", formData.image);
-    }
-    formDataToSend.append("location", formData.location);
-    formDataToSend.append("email", formData.email);
-    formDataToSend.append("phone", formData.phone);
-
-    await axios.post(`${API_PATH.ADD_CONTACT}`, formDataToSend, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data", // Make sure to set the correct content type
-      },
-    });
-
-    toast.success("Contact added successfully!");
-    refreshCategoryList();
-    handleCloseModal();
-  } catch (error) {
-    console.error("Error adding contact:", error);
-    toast.error("Failed to add contact. Please try again later.");
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
 
   const handleCloseModal = () => {
     setAddModal(false);
@@ -117,23 +116,22 @@ const handleSubmit = async (event: React.FormEvent) => {
             <div className="text-xl mt-5">Add Contact Data</div>
           </div>
           <form
-  className="grid grid-cols-12 gap-4 mt-5 gap-y-5 px-5 pb-5"
-  encType="multipart/form-data"
-  onSubmit={handleSubmit}
->
-
-              <div className="col-span-12 intro-y sm:col-span-12">
-                            <FormLabel htmlFor="input-wizard-1">
-                                Contact Banner Image
-                            </FormLabel>
-                            <FormInput
-                                id="input-wizard-1"
-                                type="file"
-                                name="image"
-                                onChange={handleImageChange}
-                                className="border border-gray-200 p-1"
-                            />
-                        </div>
+            className="grid grid-cols-12 gap-4 mt-5 gap-y-5 px-5 pb-5"
+            encType="multipart/form-data"
+            onSubmit={handleSubmit}
+          >
+            <div className="col-span-12 intro-y sm:col-span-12">
+              <FormLabel htmlFor="input-wizard-1">
+                Contact Banner Image
+              </FormLabel>
+              <FormInput
+                id="input-wizard-1"
+                type="file"
+                name="image"
+                onChange={handleImageChange}
+                className="border border-gray-200 p-1"
+              />
+            </div>
             <div className="col-span-6 intro-y sm:col-span-6">
               <FormLabel htmlFor="input-wizard-1">
                 Email <span className="text-red-600 font-bold">*</span>
@@ -149,6 +147,7 @@ const handleSubmit = async (event: React.FormEvent) => {
                 value={formData.email}
               />
             </div>
+
 
             <div className="col-span-6 intro-y sm:col-span-6">
               <FormLabel htmlFor="input-wizard-1">

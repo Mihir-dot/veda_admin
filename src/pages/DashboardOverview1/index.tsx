@@ -2,9 +2,7 @@ import clsx from "clsx";
 import Statistics from "../../components/Dashboard/statistics";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../stores/hooks";
-import { getUserData, setDashboardData } from "../../stores/dashboard";
-import moment from "moment";
-import { removeItemFromLocalStorage } from "../../stores/sideMenuSlice";
+import { getUserData } from "../../stores/dashboard";
 
 function Main() {
   const dispatch = useAppDispatch();

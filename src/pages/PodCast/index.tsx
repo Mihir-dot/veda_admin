@@ -10,7 +10,7 @@ import TomSelect from "../../base-components/TomSelect";
 import { FormInput, FormSelect, FormSwitch } from "../../base-components/Form";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
-import {getImageSource, API_PATH} from "../../api-services/apiPath"
+import { getImageSource, API_PATH } from "../../api-services/apiPath";
 
 const index: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,10 +22,9 @@ const index: React.FC = () => {
   const navigate = useNavigate();
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        `${API_PATH.GET_PODCAST_DATA}`,
-        { headers: getAuthHeaders() }
-      );
+      const response = await axios.get(`${API_PATH.GET_PODCAST_DATA}`, {
+        headers: getAuthHeaders(),
+      });
       if (response.data) {
         setPodcast(response.data);
       }
@@ -38,9 +37,9 @@ const index: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleEditClick = (podcastId: string,) => {
-    localStorage.setItem('newPodcastAdded',podcastId);
-    navigate('/podcast/manage-podcast');
+  const handleEditClick = (podcastId: string) => {
+    localStorage.setItem("newPodcastAdded", podcastId);
+    navigate("/podcast/manage-podcast");
   };
 
   const deleteContact = async (id: string) => {
@@ -64,8 +63,9 @@ const index: React.FC = () => {
             className="mb-2 ml-auto sm:text-sm text-xs"
             onClick={() => navigate("/podcast/manage-podcast")}
           >
-            <Lucide icon="PlusCircle" className="mr-2 w-5" /> Add Podcast Details
-          </Button> 
+            <Lucide icon="PlusCircle" className="mr-2 w-5" /> Add Podcast
+            Details
+          </Button>
         </div>
         {/* {formLoader ? <LoadingSpinner /> : ( */}
         {
@@ -82,12 +82,12 @@ const index: React.FC = () => {
                         Image
                       </Table.Th>
                       <Table.Th className="border-b-0 whitespace-nowrap">
-                       Name
+                        Name
                       </Table.Th>
                       <Table.Th className="border-b-0 whitespace-nowrap">
-                       Link
+                        Link
                       </Table.Th>
-                      
+
                       <Table.Th className="border-b-0 whitespace-nowrap">
                         Action
                       </Table.Th>
@@ -96,35 +96,49 @@ const index: React.FC = () => {
                   <Table.Tbody>
                     {podcast.map((podcast, index) => (
                       <Table.Tr key={podcast._id}>
-                       <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">{startIndex + index}</Table.Td>
-                       <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-4 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
+                        <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
+                          {startIndex + index}
+                        </Table.Td>
+                        <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-4 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
                           <img
                             src={getImageSource(podcast.pictureLocation)}
                             alt="Banner"
                             className="w-15 h-14"
                           />
                         </Table.Td>
-                   
-                       <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">{podcast.name}</Table.Td>
-                       <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">{podcast.link}</Table.Td>
-                        
+
+                        <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
+                          {podcast.name}
+                        </Table.Td>
+                        <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
+                          <a
+                            href={podcast.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600"
+                          >
+                            {podcast.link}
+                          </a>
+                        </Table.Td>
+
                         <Table.Td className="first:rounded-l-md last:rounded-r-md bg-white border border-r-0 border-l-0 first:border-l last:border-r border-slate-200 dark:bg-darkmode-600 dark:border-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400">
                           <div className="flex items-center gap-5">
                             <span
                               className="flex items-center cursor-pointer"
                               onClick={() => handleEditClick(podcast._id)}
-
                             >
-                              <Lucide icon="Edit" className="w-5 h-5 text-blue-600" />
+                              <Lucide
+                                icon="Edit"
+                                className="w-5 h-5 text-blue-600"
+                              />
                             </span>
-                           <span>
-                          <Lucide
-                            icon="Trash2"
-                            className="w-4 h-4 text-red-500 cursor-pointer"
-                            onClick={() => deleteContact(podcast._id)}
-
-                          />
-                          </span> 
+                            <span>
+                              <Lucide
+                                icon="Trash2"
+                                className="w-4 h-4 text-red-500 cursor-pointer"
+                                onClick={() => deleteContact(podcast._id)}
+                              />
+                            </span>
                           </div>
                         </Table.Td>
                       </Table.Tr>

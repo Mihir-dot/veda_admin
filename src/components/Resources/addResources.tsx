@@ -326,12 +326,9 @@ const AddResources: React.FC = () => {
                   onChange={(e) => handleFileChange(e, "picture")}
                   className="border border-gray-200 p-1 bg-white"
                 />
-                {imageError.picture && (
-                  <div className="mt-2 text-danger">
-                    {typeof imageError.picture === "string" &&
-                      imageError.picture}
-                  </div>
-                )}
+             <b className="text-green-800">
+                  * Please Upload banner image in 1920 x 400 px
+                </b>
               </div>
 
               <div className="flex items-center col-span-12 mt-5 intro-y">

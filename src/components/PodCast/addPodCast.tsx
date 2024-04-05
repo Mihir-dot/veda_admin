@@ -41,7 +41,6 @@ const AddPodCast: React.FC = () => {
   const [initFormData, setInitFormData] = useState<FormState>({
     ...initialState,
   });
-  console.log("initFormdata------", initFormData);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isFormValid, setIsFormValid] = useState(false);
@@ -268,12 +267,9 @@ const AddPodCast: React.FC = () => {
                   onChange={(e) => handleFileChange(e, "picture")}
                   className="border border-gray-200 p-1 bg-white"
                 />
-                {imageError.picture && (
-                  <div className="mt-2 text-danger">
-                    {typeof imageError.picture === "string" &&
-                      imageError.picture}
-                  </div>
-                )}
+                <b className="text-green-800">
+                  * Please Upload banner image in 1920 x 400 px
+                </b>
               </div>
 
               <div className="flex items-center col-span-12 mt-5 intro-y">
@@ -285,7 +281,9 @@ const AddPodCast: React.FC = () => {
                 >
                   {isLoading ? (
                     <>
-                      {isPodcastAdded ? "Update Podcast Data" : "Add Podcast Data"}
+                      {isPodcastAdded
+                        ? "Update Podcast Data"
+                        : "Add Podcast Data"}
                       <LoadingIcon
                         icon="oval"
                         color="white"
@@ -295,7 +293,9 @@ const AddPodCast: React.FC = () => {
                   ) : (
                     <>
                       {" "}
-                      {isPodcastAdded ? "Update Podcast Data" : "Add Podcast Data"}
+                      {isPodcastAdded
+                        ? "Update Podcast Data"
+                        : "Add Podcast Data"}
                     </>
                   )}
                 </Button>

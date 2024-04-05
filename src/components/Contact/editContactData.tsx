@@ -142,6 +142,8 @@ const EditContact: React.FC<EditContactProps> = ({
                 onChange={handleImageChange}
                 className="border border-gray-200 p-1"
               />
+              <b className="text-green-800">* Please Upload banner image in  1920 x 400 px</b>
+
             </div>
             <div className="col-span-6 intro-y sm:col-span-6">
               <FormLabel htmlFor="input-wizard-1">

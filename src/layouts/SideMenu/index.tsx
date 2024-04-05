@@ -36,7 +36,6 @@ function Main() {
     setFormattedMenu(sideMenu());
   }, [sideMenuStore, location.pathname]);
 
-
   const [simpleMenu, setSimpleMenu] = useCallbackState({
     active: false,
     hover: false,
@@ -168,10 +167,9 @@ function Main() {
         <div className="pt-4 mb-4">
           <div
             className={clsx(["flex items-center h-[33px]"])}
-            onClick={() =>{
-              console.log("hello--")
-              dispatch(removeItemFromLocalStorage())
-            } }
+            onClick={() => {
+            dispatch(removeItemFromLocalStorage())
+            }}
           >
             <Link to="/" className="flex items-center intro-x justify-center">
               <img
@@ -293,10 +291,16 @@ function Main() {
                             key={subMenuKey}
                             onClick={(e) => {
                               toggleMobileMenu(e);
-                              console.log("dispatch--")
-                              dispatch(removeItemFromLocalStorage());
+                              console.log("dispatch--");
+                              localStorage.removeItem("newHomeAdded");
+                              localStorage.removeItem("newAboutAdded");
+                              localStorage.removeItem("newServiceAdded");
+                              localStorage.removeItem("newPodcastAdded");
+                              localStorage.removeItem("newResourcesAdded");
+                              localStorage.removeItem("newFounderAdded");
+                              localStorage.removeItem("reviewId");
+                              localStorage.removeItem("newFaqAdded");
                             }}
-
                           >
                             <Menu
                               className={clsx({
@@ -416,7 +420,7 @@ function Menu(props: {
 }) {
   const navigate = useNavigate();
   const [formattedMenu, setFormattedMenu] = props.formattedMenuState;
-
+const dispatch=useAppDispatch()
   return (
     <a
       href={props.menu.subMenu ? "#" : props.menu.pathname}
@@ -440,11 +444,11 @@ function Menu(props: {
         props.className,
       ])}
       onClick={(event: React.MouseEvent) => {
-  event.preventDefault();
-  linkTo(props.menu, navigate);
-  setFormattedMenu([...formattedMenu]);
-}}
-
+        event.preventDefault();
+        linkTo(props.menu, navigate);
+        setFormattedMenu([...formattedMenu]);
+        dispatch(removeItemFromLocalStorage())
+      }}
     >
       <div
         className={clsx({
@@ -481,5 +485,9 @@ function Menu(props: {
     </a>
   );
 }
+
+
+
+
 
 export default Main;

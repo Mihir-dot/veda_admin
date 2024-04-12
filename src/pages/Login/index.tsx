@@ -206,7 +206,7 @@ function Main() {
                   </div>
                 </div>
                 <div className="flex mt-4 text-xs justify-end text-slate-500 sm:text-sm">
-                  {/*<Link to={`/forget-password`}>Forgot Password?</Link>*/}
+             <Link to={`/forget-password`}>Forgot Password?</Link>
                 </div>
                 <div className="mt-5 text-center xl:text-left">
                   <Button

@@ -111,7 +111,7 @@ module.exports = {
         },
         // Default dark-mode colors
         ".dark": {
-          "--color-primary": "44 85 197",
+          "--color-primary": "10 10 10",
           "--color-darkmode-50": "87 103 132",
           "--color-darkmode-100": "74 90 121",
           "--color-darkmode-200": "65 81 114",
